@@ -47,6 +47,8 @@
             @open="handleOpen" 
             @close="handleClose" 
             :collapse="isCollapse"
+            unique-opened=true
+            router=true
             background-color="#eff3f4">
 
             <!-- <el-submenu index="1" 
@@ -72,10 +74,24 @@
               <span slot="title">导航二</span>
             </el-menu-item>
 
-            <el-menu-item index="3">
-              <i class="el-icon-setting"></i>
-              <span slot="title">导航三</span>
-            </el-menu-item>
+             <el-submenu index="3" >
+              <template slot="title">
+                <i class="el-icon-setting"></i>
+                <span slot="title">系统设置</span>
+              </template>
+              <el-menu-item index="/settings/department">
+                <i class="el-icon-setting"></i>
+                <span slot="title">方向设置</span>
+              </el-menu-item>
+              <el-menu-item index="/settings/clazz">
+                <i class="el-icon-setting"></i>
+                <span slot="title">班级设置</span>
+              </el-menu-item>
+              <el-menu-item index="/settings/teacher">
+                <i class="el-icon-setting"></i>
+                <span slot="title">讲师设置</span>
+              </el-menu-item>
+            </el-submenu>
           </el-menu>
         </div>
       </div>
@@ -83,7 +99,8 @@
       <div class="app_right" :class="collapseRight">
         <div class="app_right_top">设置 > 方向设置</div>
         <div class="app_right_bottom">
-          content...
+          <!-- 用于接受组件加载 -->
+          <router-view></router-view>
         </div>
       </div>
     </article>
@@ -288,7 +305,7 @@ $bgColor_header:#448db8;
         top:3em;
         bottom:0;
         left:0;right:0;
-        padding:0 1em;
+        padding:1em;
       }
     }
     // 右侧动态折叠样式
