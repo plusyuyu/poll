@@ -15,7 +15,7 @@
 		    tooltip-effect="dark"
 		    style="width: 100%"
 		    size="mini"
-		    border=true
+		    :border=border
 		    @selection-change="handleSelectionChange">
 		    <!-- 复选框列 -->
 		    <el-table-column
@@ -54,6 +54,7 @@ export default {
 	data: function(){
 		return {
 			msg:'hello world',
+			border:true,
 			// 用于保存要删除元素的id
 			multipleSelection:[]
 		};

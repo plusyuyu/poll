@@ -47,8 +47,8 @@
             @open="handleOpen" 
             @close="handleClose" 
             :collapse="isCollapse"
-            unique-opened=true
-            router=true
+            :unique-opened=uniqueOpened
+            :router=isRouter
             background-color="#eff3f4">
 
             <!-- <el-submenu index="1" 
@@ -119,7 +119,9 @@ export default {
   data(){
     return {
       isCollapse: false,
-      timeout:"10"
+      timeout:"10",
+      uniqueOpened:true,
+      isRouter:true
     }
   },
   computed:{
