@@ -308,6 +308,7 @@ $bgColor_header:#448db8;
         bottom:0;
         left:0;right:0;
         padding:1em;
+        overflow-y:scroll;
       }
     }
     // 右侧动态折叠样式

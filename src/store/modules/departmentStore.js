@@ -3,22 +3,7 @@ import axios from '../axios'
 export default {
 	//初始状态
 	state:{
-		departments:[{
-				id:1,
-				name:'java',
-				description:'Java是做后开发的',
-				belongId:1001
-			},{
-				id:2,
-				name:'c++',
-				description:'c++是做游戏开发的',
-				belongId:1001
-			},{
-				id:3,
-				name:'webui',
-				description:'webui是做游戏开发的',
-				belongId:1001
-			}]
+		departments:[]
 	},
 	//获取器
 	getters:{
@@ -28,22 +13,39 @@ export default {
 	},	
 	//突变
 	mutations:{
-		alterUsersData(state,data){
-			state.users = data;
+		alterDepartments(state,data){
+			state.departments = data;
 		}
 	},
 	//动作
 	actions:{
-		findAllUsers(context){
+		// 保存部门信息
+		saveDepartment(context,dep){
 			return new Promise((resolve,reject)=>{
-				/*
-				axios.get('/manager/queryAllTeachers.action').then(({data})=>{
-					context.commit('alterTeachersData',data);
+				axios.post('/manager/saveOrUpdDepartment.action',{
+					'department.name':dep.name,
+					'department.description':dep.description
+				}).then(({data})=>{
+					//context.commit('alterDepartments',data);
+					//保存成功应该重新查询所有的数据
+					context.dispatch('findAllDepartments');
 					resolve();
 				}).catch((error)=>{
 					reject(error);
 				});
-				*/
+				
+			});
+		},
+		// 查询所有的部门
+		findAllDepartments(context){
+			return new Promise((resolve,reject)=>{
+				axios.get('/manager/queryDepartment.action').then(({data})=>{
+					context.commit('alterDepartments',data);
+					resolve();
+				}).catch((error)=>{
+					reject(error);
+				});
+				
 			});
 		}
 	}
