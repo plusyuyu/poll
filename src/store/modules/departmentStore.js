@@ -19,10 +19,37 @@ export default {
 	},
 	//动作
 	actions:{
+		batchDeleteDepartment(context,ids){
+			return new Promise((resolve,reject)=>{
+				axios.post('/manager/batchDelDepartment.action',{
+					'ids':ids
+				}).then(({data})=>{
+					//保存成功应该重新查询所有的数据
+					context.dispatch('findAllDepartments');
+					resolve();
+				}).catch((error)=>{
+					reject(error);
+				});
+			});
+		},
+		deleteDepartment(context,id){
+			return new Promise((resolve,reject)=>{
+				axios.post('/manager/delDepartment.action',{
+					'department.id':id
+				}).then(({data})=>{
+					//保存成功应该重新查询所有的数据
+					context.dispatch('findAllDepartments');
+					resolve();
+				}).catch((error)=>{
+					reject(error);
+				});
+			});
+		},
 		// 保存部门信息
 		saveDepartment(context,dep){
 			return new Promise((resolve,reject)=>{
 				axios.post('/manager/saveOrUpdDepartment.action',{
+					'department.id':dep.id?dep.id:'',
 					'department.name':dep.name,
 					'department.description':dep.description
 				}).then(({data})=>{

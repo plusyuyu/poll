@@ -7,7 +7,7 @@
 			<el-button 
 				@click="toAddDepartment"
 				type="primary" size='mini'>添加</el-button>
-			<el-button type="primary" size='mini'>批量删除</el-button>
+			<el-button @click="batchDelete" type="primary" size='mini'>批量删除</el-button>
 		</div>
 		<!-- 数据 -->
 		<div class="dataTbl">
@@ -47,8 +47,6 @@
 		<el-dialog 
 			:title="title" :visible.sync="dialogFormVisible">
 			
-			{{form}}
-
 		  <el-form :model="form">
 		    <el-form-item label="方向名称" :label-width="formLabelWidth">
 		      <el-input v-model="form.name" auto-complete="off"></el-input>
@@ -95,21 +93,64 @@ export default {
 	},
 	// 函数 es6
 	methods:{
-		...mapActions(['findAllDepartments','saveDepartment']),
+		...mapActions(['findAllDepartments','saveDepartment','deleteDepartment','batchDeleteDepartment']),
 		// 处理多选
 		handleSelectionChange(val) {
       this.multipleSelection = val;
     },
     // 处理修改操作
     handleEdit(index,row){
-    	console.log(row);
+    	//1. 通过当前要修改数据的id找到该数据，并且显示到模态框中
+    	this.form = row;	//双向数据绑定
+    	//2. 模态框打开 
+    	this.title = "修改方向信息"
+    	this.dialogFormVisible = true;
+    },
+    batchDelete(){
+    	this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+        	var ids = this.multipleSelection;
+		    	// 获取要删除数据的id,并且把它们放到一个数组中
+		    	ids = ids.map(function(item){
+		    		return item.id;
+		    	});
+		    	//调用store中的action完成删除操作
+		    	this.batchDeleteDepartment(ids);
+        	//2.如果删除成功才提示 高保真页面
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({type: 'info', message: '已取消删除'});
+        });
+    	
     },
     // 处理删除操作
     handleDelete(index,row){
-    	console.log(row);
+    	this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+        	//1.调用store中的功能进行删除
+        	this.deleteDepartment(row.id);
+        	//2.如果删除成功才提示 高保真页面
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({type: 'info', message: '已取消删除'});
+        });
     },
     toAddDepartment(){
     	//1. 弹出模态框
+    	this.title = "添加方向信息";
+    	this.form = {};
     	this.dialogFormVisible = true;
     },
     addDepartment(){
