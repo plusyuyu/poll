@@ -4,6 +4,8 @@ import Users from '@/pages/users'
 import Department from '@/pages/settings/department.vue'
 import Clazz from '@/pages/settings/clazz.vue'
 import Teacher from '@/pages/settings/teacher.vue'
+import InfoCar from '@/pages/info/car.vue'
+import InfoCustomer from '@/pages/info/customer.vue'
 
 
 Vue.use(Router)
@@ -26,6 +28,14 @@ export default new Router({
       path: '/settings/teacher',
       name: 'Teacher',
       component: Teacher
+    },{
+      path: '/info/car',
+      name: 'InfoCar',
+      component: InfoCar
+    },{
+      path: '/info/customer',
+      name: 'InfoCustomer',
+      component: InfoCustomer
     }
   ]
 })

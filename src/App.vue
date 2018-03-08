@@ -6,7 +6,7 @@
       <div class="row">
         <div class="logo col-sm-6 ">
           <i class="fa fa-shopping-bag"></i>
-          <a href="#">智慧校园课调云平台</a>
+          <a href="#">智慧城市汽车租赁系统</a>
         </div>
         <div class="info col-sm-6 hidden-xs">
           <el-dropdown class="user">
@@ -57,21 +57,21 @@
             <el-submenu index="1" >
               <template slot="title">
                 <i class="el-icon-location"></i>
-                <span slot="title">导航一</span>
+                <span slot="title">信息管理</span>
               </template>
-              <el-menu-item index="1-1">
+              <el-menu-item index="/info/car">
                 <i class="el-icon-setting"></i>
-                <span slot="title">子导航1</span>
+                <span slot="title">车辆信息</span>
               </el-menu-item>
-              <el-menu-item index="1-2">
+              <el-menu-item index="/info/customer">
                 <i class="el-icon-setting"></i>
-                <span slot="title">子导航2</span>
+                <span slot="title">顾客信息</span>
               </el-menu-item>
             </el-submenu>
 
             <el-menu-item index="2">
               <i class="el-icon-menu"></i>
-              <span slot="title">导航二</span>
+              <span slot="title">租赁管理</span>
             </el-menu-item>
 
              <el-submenu index="3" >
@@ -155,7 +155,7 @@ export default {
 <style scoped="scoped" lang="scss">
 $bgColor:#eff3f4;
 
-$bgColor_header:#448db8;
+$bgColor_header:pink;
 
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
